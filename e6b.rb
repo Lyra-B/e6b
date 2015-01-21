@@ -1,32 +1,28 @@
 class Airport
   attr_accessor :code, :lat, :lng
+
+  def distance_to(other_airport)
+    earth_radius_km = 6371
+    from_lat_radians = @lat * Math::PI / 180
+    from_lng_radians = @lng * Math::PI / 180
+    to_lat_radians = other_airport.lat * Math::PI / 180
+    to_lng_radians = other_airport.lng * Math::PI / 180
+    cosines_product = Math.cos(to_lat_radians) * Math.cos(from_lat_radians) * Math.cos(from_lng_radians - to_lng_radians)
+    sines_product = Math.sin(to_lat_radians) * Math.sin(from_lat_radians)
+    distance = earth_radius_km * Math.acos(cosines_product + sines_product)
+  end
 end
+
 
 class Flight
 attr_accessor :flight_number , :airline, :from, :to, :flight_departure, 
 :speed_kph, :bearing, :aircraft
 
   def estimated_flight_time
-    # Find the estimated flight time- e.g. If an aircraft is flying at a speed of per hour, how long will it take to fly  miles?
-    earth_radius_km = 6371
-
-    # Convert the lat / lng from the from / to airports into radians
-    from_lat_radians = from.lat * Math::PI / 180
-    from_lng_radians = from.lng * Math::PI / 180
-    to_lat_radians = to.lat * Math::PI / 180
-    to_lng_radians = to.lng * Math::PI / 180
-
-    # Calculate the distance between the start and end airports
-    cosines_product = Math.cos(to_lat_radians) * Math.cos(from_lat_radians) * Math.cos(from_lng_radians - to_lng_radians)
-    sines_product = Math.sin(to_lat_radians) * Math.sin(from_lat_radians)
-    distance = earth_radius_km * Math.acos(cosines_product + sines_product)
-
-    # Calculate the flight time
-    speed = speed_kph
-    hours = (distance / speed).round
-    minutes = distance.remainder(speed).round
+    distance = from.distance_to(to)
+    hours = (distance / speed_kph).round
+    minutes = distance.remainder(speed_kph).round
     return hours, minutes
-    #puts "Estimated Flight Time for #{ba_12345[:flight_number]}: #{hours} hours #{minutes} minutes"
   end
 end
 
