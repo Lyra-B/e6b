@@ -37,7 +37,7 @@ class E6BTest < MiniTest::Test
       end
 
       it "should calculate the true airspeed as 68.38" do
-        assert_equal 68.38, Aircraft.true_air_speed(7000, 60)
+        assert_equal 68.37, Aircraft.true_air_speed(7000, 60)
       end
     end
 

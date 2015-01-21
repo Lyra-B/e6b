@@ -1,15 +1,20 @@
+module Pressure
+	AIR_PRESS_HECT = 1013.25
+	MODIFIER = 30
+end
+
+
+
 class Aircraft
+	include Pressure
   def self.fuel_consumption(total_gallons_burned, hours, minutes)
-  	(total_gallons_burned / (hours+(minutes/60.to_f))).round(2)
+  	min_to_h = minutes/60.to_f
+  	hours_plus_min = hours+min_to_h
+  	(total_gallons_burned / hours_plus_min).round(2)
   end
 
   def self.time_left(gallons_burned_per_hour, gallons_left)
-  	gallons_left/gallons_burned_per_hour
-  end
-  
-  module Pressure
-  	AIR_PRESS_HECT = 1013.25
-  	MODIFIER = 30
+  	gallons_left / gallons_burned_per_hour
   end
 
   def self.true_air_speed(alt, air_speed_knots)
