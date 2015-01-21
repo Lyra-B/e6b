@@ -22,7 +22,7 @@ class E6BTest < MiniTest::Test
       end
 
       it "should calculate the total time the aircraft can fly as 4 hours" do
-        skip "Design and Implement me! (and delete this line)"
+        assert_equal 4, (@gallons_left/@gallons_burned_per_hour)
       end
     end
   end
