@@ -1,4 +1,5 @@
 require 'minitest/autorun'
+require './e6b_b'
 
 class E6BTest < MiniTest::Test
 
@@ -11,7 +12,7 @@ class E6BTest < MiniTest::Test
       end
 
       it "should calculate the gallons per hour as 6.98" do
-        assert_equal 6.98, (@total_gallons_burned/(@hours+(@minutes/60.to_f))).round(2)
+        assert_equal 6.98, Aircraft.fuel_consumption(50,7,10)
       end
     end
 
@@ -36,24 +37,28 @@ class E6BTest < MiniTest::Test
       end
 
       it "should calculate the true airspeed as 68.38" do
-        skip "Design and Implement me! (and delete this line)"
+        assert_equal 68.38, Aircraft.true_air_speed(7000, 60)
       end
     end
 
     describe "Wind direction" do
       before do
         @runway_heading_degrees = 30
-        @wind_direction_degress = 9
+        @wind_direction_degrees = 9
+        @wind_speed_kph = 40
       end
 
       it "should calculate the left/x wind as 14" do
-        skip "Design and Implement me! (and delete this line)"
+        assert_equal 14, Aircraft.wind_direction(30, 9, 40)
       end
 
-      it "should calculate the headwind as 35" do
-        skip "Design and Implement me! (and delete this line)"
+      it "should calculate the headwind as 37" do
+        assert_equal 37, Aircraft.headwind(30, 9, 40)
       end
     end
   end
 
 end
+
+
+
