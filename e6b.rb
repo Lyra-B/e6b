@@ -1,5 +1,5 @@
 module HashInitializer
-  def initialize(options = {})
+  def initialize(options={})
     options.each do |key,value|
       self.send(:"#{key}=" , value)
     end
@@ -34,10 +34,15 @@ end
 
 class Airport
   attr_accessor :code, :lat_lng
+
+  def initialize(code,lat_lng)
+    self.code = code
+    self.lat_lng = lat_lng
+  end
 end
 
 class Flight
-attr_accessor :flight_number , :airline, :from, :to, :flight_departure, 
+attr_accessor :flight_number , :airline, :from, :to, :flight_departure,
 :speed_kph, :bearing, :aircraft, :from_lat_lng, :to_lat_lng
 include HashInitializer
   def estimated_flight_time
@@ -53,10 +58,12 @@ include HashInitializer
   end
 end
 
-heathrow = Airport.new(:code => "LHR", :lat_lng => LatLng.new(51.4700223,-0.4542955))
-jfk = Airport.new(:code => "JFK", :lat_lng => LatLng.new(40.6413111, -73.77813909999999))
+heathrow = Airport.new("LHR", LatLng.new(51.4700223,-0.4542955))
+jfk = Airport.new("JFK", LatLng.new(40.6413111, -73.77813909999999))
+# heathrow = Airport.new(:code => "LHR", :lat_lng => LatLng.new(51.4700223,-0.4542955))
+# jfk = Airport.new(:code => "JFK", :lat_lng => LatLng.new(40.6413111, -73.77813909999999))
 
-flight = Flight.new(
+@flight = Flight.new(
 :flight_number => 'BA-12345',
 :airline => 'British Airways',
 :from => heathrow,

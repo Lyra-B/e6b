@@ -36,20 +36,20 @@ class Flight
 end
 
 class Wind
-	attr_accessor :wind_direction_degrees, :wind_speed_kph
+	attr_accessor :wind_direction_degrees, :wind_speed_kph, :flight
 
 	def heading_difference (runway_heading_degrees)
 	  (runway_heading_degrees - self.wind_direction_degrees).abs * Math::PI/180
   end
 
 	def wind_direction
-		#heading_difference = heading_difference(runway_heading_degrees, self.wind_direction_degrees)
-  	(self.wind_speed_kph * Math.sin(heading_difference(runway_heading_degrees))).round
+		# heading_difference = heading_difference(runway_heading_degrees, self.wind_direction_degrees)
+  	(self.wind_speed_kph * Math.sin(heading_difference(self.flight.runway_heading_degrees))).round
   end
 
   def headwind
-  	#heading_difference = heading_difference(runway_heading_degrees, self.wind_direction_degrees)
-  	(self.wind_speed_kph * Math.cos(heading_difference(runway_heading_degrees))).round
+  	# heading_difference = heading_difference(runway_heading_degrees, self.wind_direction_degrees)
+  	(self.wind_speed_kph * Math.cos(heading_difference(self.flight.runway_heading_degrees))).round
   end
 end
 
